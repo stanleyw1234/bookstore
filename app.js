@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 require('dotenv').config();
-const stripe = require('stripe');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 var app = express();
 
@@ -50,19 +50,22 @@ app.get('/checkout', function(req, res) {
       break;
   }
   // before proceeding to checkout, create payment intent
-  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+  //const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
   stripe.paymentIntents.create({
     amount: amount,
     currency: 'usd',
     payment_method_types: ['card'],
   }).then(function(paymentIntent) {
-    console.log(paymentIntent);
+    console.log(paymentIntent.client_secret);
+    console.log(process.env.STRIPE_PUBLISHABLE_KEY);
+
 
     res.render('checkout', {
       title: title,
       amount: amount,
       error: error,
-      client_secret: paymentIntent.client_secret
+      client_secret: paymentIntent.client_secret,
+      publishable_key:process.env.STRIPE_PUBLISHABLE_KEY
     });
   });
 
