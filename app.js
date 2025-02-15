@@ -49,12 +49,23 @@ app.get('/checkout', function(req, res) {
       error = "No item selected"      
       break;
   }
-
-  res.render('checkout', {
-    title: title,
+  // before proceeding to checkout, create payment intent
+  const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+  stripe.paymentIntents.create({
     amount: amount,
-    error: error
+    currency: 'usd',
+    payment_method_types: ['card'],
+  }).then(function(paymentIntent) {
+    console.log(paymentIntent);
+
+    res.render('checkout', {
+      title: title,
+      amount: amount,
+      error: error,
+      client_secret: paymentIntent.client_secret
+    });
   });
+
 });
 
 /**
@@ -68,5 +79,5 @@ app.get('/success', function(req, res) {
  * Start server
  */
 app.listen(3000, () => {
-  console.log('Getting served on port 3000');
+  console.log('Getting served on port 3000 http://localhost:3000/');
 });
