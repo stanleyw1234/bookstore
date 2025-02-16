@@ -6,8 +6,47 @@
     </h1>
   </div>
   <div class="mt-40 text-center">
-    <div class="mt-20 text-center text-secondary border-placeholder">
+    <div class="mt-20 text-center text-secondary border-placeholder" id="message">
       Add details about the payment here!
     </div>
   </div>
 </main>
+
+<script>
+  const stripe = Stripe('pk_test_51Qp0x0ArM38sWUqgy1GHMZ9rp476vUPSTQyiUePKL1a1lWn6hDmHDsbGov0iSCbbMTDN4LvE64JCMsakALYimqoV00tTgKOVAs');
+
+
+  //const stripe = Stripe('pk_test_51Qp0x0ArM38sWUqgy1GHMZ9rp476vUPSTQyiUePKL1a1lWn6hDmHDsbGov0iSCbbMTDN4LvE64JCMsakALYimqoV00tTgKOVAs');
+  const clientSecret = new URLSearchParams(window.location.search).get(
+    'payment_intent_client_secret'
+  );
+  //refactor to use api call to get publishable keys and client secret?
+
+  stripe.retrievePaymentIntent(clientSecret).then(({paymentIntent}) => {
+  const message = document.querySelector('#message')
+  switch (paymentIntent.status) {
+      case 'succeeded':
+      message.innerText = "Success! Payment received"
+      const intentId = paymentIntent.id;
+      const amount = paymentIntent.amount;
+
+      // Display intent ID and amount
+      message.innerHTML += `<br><br>Payment Intent ID: ${intentId}<br>Amount: $${(amount / 100).toFixed(2)}`;
+      break;
+
+    case 'processing':
+      message.innerText = "Payment processing. We'll update you when payment is received.";
+      break;
+
+    case 'requires_payment_method':
+      message.innerText = 'Payment failed. Please try another payment method.';
+      // Redirect your user back to your payment page to attempt collecting
+      // payment again
+      break;
+
+    default:
+      message.innerText = 'Something went wrong.';
+      break;
+  }
+});
+</script>

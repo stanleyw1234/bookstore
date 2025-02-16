@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
 /**
  * Checkout route
  */
-app.get('/checkout', function(req, res) {
+app.get('/checkout', async function(req, res) {
   // Just hardcoding amounts here to avoid using a database
   const item = req.query.item;
   let title, amount, error;
@@ -49,27 +49,39 @@ app.get('/checkout', function(req, res) {
       error = "No item selected"      
       break;
   }
-  // before proceeding to checkout, create payment intent
-  //const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-  stripe.paymentIntents.create({
-    amount: amount,
-    currency: 'usd',
-    payment_method_types: ['card'],
-  }).then(function(paymentIntent) {
-    console.log(paymentIntent.client_secret);
-    console.log(process.env.STRIPE_PUBLISHABLE_KEY);
 
-
-    res.render('checkout', {
-      title: title,
-      amount: amount,
-      error: error,
-      client_secret: paymentIntent.client_secret,
-      publishable_key:process.env.STRIPE_PUBLISHABLE_KEY
-    });
-  });
-
+  /**
+ * create payment intent
+ */
+const paymentIntent = await stripe.paymentIntents.create({
+  amount: amount,
+  currency: 'usd',
+  automatic_payment_methods: {
+    enabled: true,
+  },
 });
+
+
+console.log(paymentIntent.client_secret);
+//console.log(process.env.STRIPE_PUBLISHABLE_KEY);
+
+  res.render('checkout', {
+    title: title,
+    amount: amount,
+    error: error,
+    client_secret:paymentIntent.client_secret,
+    //publishable_key: process.env.STRIPE_PUBLISHABLE_KEY
+  });
+});
+
+/**
+ * fetch publishable_key
+ */
+app.get('/publishable_key', async (req, res) => {
+  const intent = // ... Fetch or create the PaymentIntent
+  res.send({publishable_key: process.env.STRIPE_PUBLISHABLE_KEY});
+});
+
 
 /**
  * Success route
