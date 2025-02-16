@@ -32,14 +32,15 @@
 </div>
 
 <script>
+window.addEventListener('DOMContentLoaded', async () => {
+  const{publishable_key}= await fetch('/publishable_key').then(res=>res.json())
+  console.log(publishable_key)
 //initiate stripe
-
-const stripe = Stripe('pk_test_51Qp0x0ArM38sWUqgy1GHMZ9rp476vUPSTQyiUePKL1a1lWn6hDmHDsbGov0iSCbbMTDN4LvE64JCMsakALYimqoV00tTgKOVAs');
+const stripe = Stripe(publishable_key);
 
 // Create Stripe element
 // refer to https://docs.stripe.com/payments/accept-a-payment?ui=elements
 console.log('{{client_secret}}')
-
 // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
 const elements = stripe.elements({clientSecret: '{{client_secret}}'});
 
@@ -75,4 +76,6 @@ form.addEventListener('submit', async (event) => {
     // site first to authorize the payment, then redirected to the `return_url`.
   }
 });
+
+})
 </script>

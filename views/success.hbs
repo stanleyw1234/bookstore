@@ -13,10 +13,12 @@
 </main>
 
 <script>
-  const stripe = Stripe('pk_test_51Qp0x0ArM38sWUqgy1GHMZ9rp476vUPSTQyiUePKL1a1lWn6hDmHDsbGov0iSCbbMTDN4LvE64JCMsakALYimqoV00tTgKOVAs');
+window.addEventListener('DOMContentLoaded', async () => {
+  const{publishable_key}= await fetch('/publishable_key').then(res=>res.json())
+  console.log(publishable_key)
+//initiate stripe
+const stripe = Stripe(publishable_key);
 
-
-  //const stripe = Stripe('pk_test_51Qp0x0ArM38sWUqgy1GHMZ9rp476vUPSTQyiUePKL1a1lWn6hDmHDsbGov0iSCbbMTDN4LvE64JCMsakALYimqoV00tTgKOVAs');
   const clientSecret = new URLSearchParams(window.location.search).get(
     'payment_intent_client_secret'
   );
@@ -49,4 +51,6 @@
       break;
   }
 });
+
+})
 </script>

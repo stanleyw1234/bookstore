@@ -1,12 +1,6 @@
 window.addEventListener('DOMContentLoaded', async () => {
+  const{publishable_key}= await fetch('/publishable_key').then(res=>res.json())
   console.log(publishable_key)
-
-  const stripe = Stripe(publishable_key);
-  const elements = stripe.elements({clientSecret:client_secret}); // use pi client_secrete to create element
-  const paymentElement = elements.create('payment')
-  paymentElement.mount('#stripe-element')
-
-
 })
 
 
