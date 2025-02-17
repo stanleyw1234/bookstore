@@ -121,7 +121,7 @@ I initially tried to take a shortcut & pass `publishableKey` value from `checkou
     - Complete merchant profile if necessary to accept other payment methods
 
 4. **Scalability**:
-    - Adopt a microservices architecture to allow decoupling and flexibility in scaling different functionalities 
+    - Adopt a microservices architecture, decouple functionalities and allow flexibilityto scale each functionality independently
     - Use message queues like Kafka or Redis to manage order peaks (Black Friday and Cyber Monday etc), decouple data flow from actual processing.
     - Implement auto-scaling on cloud platforms (e.g., AWS, Azure) to dynamically adjust resources based on demand.
     - Implement load balancers to distribute incoming traffic across multiple servers, ensuring high availability and reliability.
