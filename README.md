@@ -1,4 +1,4 @@
-# Take home project
+# Take home project - by Stan Wang
 
 ## How to build, configure and run your application
 
