@@ -73,9 +73,13 @@ POST /v1/payment_intents/:id/confirm         : Confirm a payment
 ## How did you approach this problem? Which docs did you use to complete the project? What challenges did you encounter?
 
 ### I began by breaking down the requirements into several key actions:
+
 -webapp passes book info to server (already implemented in template)
+
 -server creates payment intent with stripe
+
 -webapp creates payment form using element, gather and submit payment details to stripe for processing
+
 -webapp retrieve and display payment status
 
 Using stripe.js as the foundation, I mapped each required action to corresponding functions in stripe.js package
@@ -89,7 +93,7 @@ I also found useful tutorial videos from stripe developer channel on youtube, wi
 https://www.youtube.com/@StripeDev
 
 
-### challenges faced:
+### Challenges faced:
 Time pressure: I was on business trip in China the whole week with packed schedules, and only had the weekends to finish this assignment. It was a bit rushed, and I only managed to implement the basic functionalities to have a "working demo".
 
 Network issue in China:
