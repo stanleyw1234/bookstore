@@ -63,14 +63,11 @@ const paymentIntent = await stripe.paymentIntents.create({
 
 
 console.log(paymentIntent.client_secret);
-//console.log(process.env.STRIPE_PUBLISHABLE_KEY);
-
   res.render('checkout', {
     title: title,
     amount: amount,
     error: error,
     client_secret:paymentIntent.client_secret,
-    //publishable_key: process.env.STRIPE_PUBLISHABLE_KEY
   });
 });
 
