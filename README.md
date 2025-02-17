@@ -134,6 +134,10 @@ I initially tried to take a shortcut & pass `publishableKey` value from `checkou
     - Add comprehensive error handling to manage exceptions gracefully, providing meaningful error messages to users and logging errors for further analysis.
     - Implement retry mechanisms (exponential backoff) to handle transient network issues.
     - Set up failover strategies to ensure the application remains available even if some components fail.
+    
+7. **Other Stripe Functionalities**:
+    - Include other functionalities to handle tax, invoicing, subscription/recurring payments etc.
+    - Implement Stripe Radar to reduce risk of fraudulent chargebacks/disputes.
 
 
 
