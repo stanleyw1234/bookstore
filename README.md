@@ -122,7 +122,7 @@ I initially tried to take a shortcut & pass `publishableKey` value from `checkou
 
 4. **Scalability**:
     - Adopt a microservices architecture, decouple functionalities and allow flexibilityto scale each functionality independently
-    - Use message queues like Kafka or Redis to manage order peaks (Black Friday and Cyber Monday etc), decouple data flow from actual processing.
+    - Use message queues like Kafka or RabbitMQ to manage order peaks (Black Friday and Cyber Monday etc), decouple data flow from actual processing.
     - Implement auto-scaling on cloud platforms (e.g., AWS, Azure) to dynamically adjust resources based on demand.
     - Implement load balancers to distribute incoming traffic across multiple servers, ensuring high availability and reliability.
 
@@ -134,7 +134,7 @@ I initially tried to take a shortcut & pass `publishableKey` value from `checkou
     - Add comprehensive error handling to manage exceptions gracefully, providing meaningful error messages to users and logging errors for further analysis.
     - Implement retry mechanisms (exponential backoff) to handle transient network issues.
     - Set up failover strategies to ensure the application remains available even if some components fail.
-    
+
 7. **Other Stripe Functionalities**:
     - Include other functionalities to handle tax, invoicing, subscription/recurring payments etc.
     - Implement Stripe Radar to reduce risk of fraudulent chargebacks/disputes.
