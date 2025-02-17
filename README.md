@@ -58,7 +58,9 @@ reference: https://docs.stripe.com/payments/accept-a-payment?platform=web&ui=ele
 Most of the Stripe API calls are abstracted away by the `stripe.js` package, simplifying the integration process. Accoding to stripe document, there are several paymentIntent API calls used to create the paymentIntent, confirm the payment, and retrieve payment status & details. 
 
 POST /v1/payment_intents                     : Create a paymentIntent
+
 GET /v1/payment_intents/:id                  : Retrieve a paymentIntent
+
 POST /v1/payment_intents/:id/confirm         : Confirm a payment
 
 ### Application Architecture
