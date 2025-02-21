@@ -75,7 +75,6 @@ console.log(paymentIntent.client_secret);
  * fetch publishable_key
  */
 app.get('/publishable_key', async (req, res) => {
-  const intent = // ... Fetch or create the PaymentIntent
   res.send({publishable_key: process.env.STRIPE_PUBLISHABLE_KEY});
 });
 
